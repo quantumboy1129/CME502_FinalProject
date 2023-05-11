@@ -1,0 +1,6 @@
+Testing Inputs:
+
+	File for Test: MarieMillares_FinalProject_TestFile
+	Active Mass: 0.31473
+	Theoretical Specific Capacity: 275.5091117
+	Voltage Range: 2.0V-4.3V
