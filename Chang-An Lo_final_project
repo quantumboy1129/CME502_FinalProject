@@ -1,0 +1,110 @@
+"""
+electrochemistru, GC data plot
+"""
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+def main():
+    fig_1()
+    # fig_2()
+    # fig_3()
+
+
+def fig_1():
+    filepath = "data/electrochemistry.csv"
+    data = pd.read_csv(filepath)
+    # Create the figure and axes
+    fig, ax = plt.subplots()
+    ax.plot(data["SS-time"], data["SS-voltage"])
+    # Create a zoomed-in view of the plot
+    axins = ax.inset_axes([0.5, 0.1, 0.4, 0.4])  # (x, y, width, height)
+
+    # Plot the data on the zoomed-in axes
+    axins.plot(data["SS-time"], data["SS-voltage"])
+
+    # Set the limits of the zoomed-in axes
+    axins.set_xlim(0, 5)
+    axins.set_ylim(-0.1, 0.2)
+
+    # Draw a rectangle to show the zoomed-in region
+    rect = plt.Rectangle((-1, -0.1), 5, 0.3, fill=False, linestyle='dashed', linewidth=2)
+    ax.add_patch(rect)
+
+
+    # ax.set_ylim(-0.1, 0.2, 0.1)
+    # ax.set_xlim(0, 5, 1)
+    plt.xlabel("Time(hour)")
+    plt.ylabel("Voltage(V vs. Li/Li+)")
+
+    plt.show()
+
+
+def fig_2():
+    filepath = "data/Full performance.csv"
+    data = pd.read_csv(filepath)
+    x = data["cycle number"]
+    y1 = data["ssd"]
+    y2 = data["cess"]
+    # Plot the data with scatter plot
+    fig, ax1 = plt.subplots()
+    # Plot the first dataset
+    ax1.scatter(x, y1, c='b', label='y1')
+    ax1.tick_params('y', color='b')
+    # Create a second axes object that shares the same x-axis
+    ax2 = ax1.twinx()
+    # Plot the second dataset
+    ax2.scatter(x, y2, c='r', label='y2')
+    ax2.set_ylabel('Coulombic efficiency (%)', color='r')
+    ax2.tick_params('y', color='r')
+    # Set the axis labels and title
+    ax1.set_xlabel('Cycle index')
+    ax1.set_ylabel('Discharge capacity(mAh/g)', color='b')
+    ax1.set_title('Anode-Free Li metal battery performance')
+    # Show the plot
+    plt.show()
+
+
+def fig_3():
+    plt.figure(figsize=(18, 7))
+    filepath = "data/GC.csv"
+    data = pd.read_csv(filepath)
+
+    plt.subplot2grid((3, 4), (0, 0))
+    x = data.xss
+    y = data.ssvotage
+    plt.xlim(0, 10, 1)
+    plt.ylim(3, 4, 0.2)
+    plt.ylabel("Voltage(V vs. Li/Li+)")
+    plt.plot(x, y, c="b")
+
+    plt.subplot2grid((3, 4), (0, 1))
+    x = data.xmss
+    y = data.msvotage
+    plt.xlim(0, 10, 1)
+    plt.ylim(3, 4, 0.2)
+    plt.plot(x, y, c="r")
+
+    plt.subplot2grid((3, 4), (1, 0))
+    x = data.time
+    y = data.SS
+    plt.xlim(0, 10, 1)
+    plt.ylim(0, 1200, 200)
+    plt.xlabel("Time(hour)")
+    plt.ylabel("H2 amount(ppm)")
+    plt.scatter(x, y, c="b")
+
+    plt.subplot2grid((3, 4), (1, 1))
+    x = data.time
+    y = data.MSTFSS
+    plt.xlim(0, 10, 1)
+    plt.ylim(0, 1200, 200)
+    plt.xlabel("Time(hour)")
+    plt.scatter(x, y, c="r")
+
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
+
