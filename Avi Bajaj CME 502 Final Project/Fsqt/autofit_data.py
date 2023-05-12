@@ -33,12 +33,15 @@ def I_bound_q_t(x, tau_fast=None, tau_kww=None, beta=None, Af=None, Am=None):
 # 
 #     return (Af + (1.0 - Af) * exp_factor) * power_factor * (1.0 - Am) + Am
 
-# Define input directory and file name to store all data
-src_bulk_data = 'C:/GitHub/Python/Koga Research Group/Fsqt/sample_data_bulk/fsqt_txt/'
-src_bound_data = 'C:/GitHub/Python/Koga Research Group/Fsqt/sample_data_bound/fsqt_txt/'
+# Define input directories and a file name to store all data
+# src_bulk_data = 'C:/GitHub/Python/Koga Research Group/Fsqt/sample_data_bulk/fsqt_txt/'
+# src_bound_data = 'C:/GitHub/Python/Koga Research Group/Fsqt/sample_data_bound/fsqt_txt/'
+
+src_bulk_data = input('Enter the path to the fsqt_txt_bulk directory: ') 
+src_bound_data = input('Enter the path to the fsqt_txt_bound directory: ')
 data_filename = 'data.txt'
 
-main_directory = 'C:/GitHub/Python/Koga Research Group/Fsqt'
+main_directory = input('Enter the path to the main (/Fsqt) directory: ') # ensure this path is to the /Fsqt directory on your machine
 os.chdir(main_directory)
 
 # Create new directories for all data and plots
@@ -166,4 +169,4 @@ for fit_type, source_dir, output_dir in [("bulk", src_bulk_data, "data_and_plots
     
             os.chdir('..') # go back to the parent directory
     
-os.chdir('C:/GitHub/Python/Koga Research Group/Fsqt') # exit the parent directory after all data and plots have been generated
+os.chdir(main_directory) # exit the parent directory after all data and plots have been generated
